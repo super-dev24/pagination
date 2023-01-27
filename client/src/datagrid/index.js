@@ -173,7 +173,7 @@ export default function DataGrid({
           page={offset}
           onPageChange={handlePageChange}
           onPageSizeChange={setLimit}
-          rowsPerPageOptions={[5, 10, 15, 20]}
+          rowsPerPageOptions={[5, 10, 20]}
           rowHeight={56}
           editMode="row"
           rowModesModel={rowModesModel}
