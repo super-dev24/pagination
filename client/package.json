@@ -1,0 +1,41 @@
+{
+  "name": "my-app",
+  "version": "0.0.44",
+  "private": true,
+  "dependencies": {
+    "@emotion/react": "latest",
+    "@emotion/styled": "latest",
+    "@mui/icons-material": "latest",
+    "@mui/material": "latest",
+    "@mui/x-data-grid": "^5.0.0",
+    "@mui/x-data-grid-generator": "^5.0.0",
+    "@mui/x-data-grid-pro": "^5.0.0",
+    "axios": "^1.2.5",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-query": "^3.39.3",
+    "react-router-dom": "^6.8.0"
+  },
+  "description": "https://github.com/mui/mui-x/blob/v5.17.20/docs/data/data-grid/pagination/PageSizeCustomOptions.js",
+  "devDependencies": {
+    "react-scripts": "latest"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
