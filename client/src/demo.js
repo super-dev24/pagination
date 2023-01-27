@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import DataGrid from "./datagrid";
 import getCustomToolbar from "./CustomToolbar";
 import { useProducts } from "./hooks/products";
@@ -19,8 +19,9 @@ const columns = [
 ];
 
 export default function PageSizeCustomOptions() {
-  const [limit, setLimit] = useState(5);
-  const [offset, setOffset] = useState(0);
+  const [searchParams] = useSearchParams();
+  const [limit, setLimit] = useState(+searchParams.get("startWith") || 5);
+  const [offset, setOffset] = useState(+searchParams.get("equals") || 0);
   const [rows, setRows] = useState([]);
 
   const { data } = useProducts(limit, offset);

@@ -28,6 +28,6 @@ app.post("/products/", (req, res) => {
   return res.json({ totalCount: mockData.length, products });
 });
 
-app.listen(5000, () => {
-  console.log("Listen on the port 5000");
+app.listen(4000, () => {
+  console.log("Listen on the port 4000");
 });

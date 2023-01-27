@@ -1,15 +1,15 @@
 import axios from "axios";
 
-const PRODUCT_URL = "http://localhost:5000/products";
+const PRODUCT_URL = "http://localhost:4000/products";
 
 const deleteProducts = (params) => {
-  return axios.delete("http://localhost:5000/products", {
+  return axios.delete("http://localhost:4000/products", {
     params,
   });
 };
 
 const postProducts = (params) => {
-  return axios.post("http://localhost:5000/products", null, {
+  return axios.post("http://localhost:4000/products", null, {
     params,
   });
 };

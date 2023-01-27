@@ -1,11 +1,12 @@
 import { Box } from "@mui/material";
 import { GridActionsCellItem, GridRowModes } from "@mui/x-data-grid-pro";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { DataGridPro } from "@mui/x-data-grid-pro";
 import EditTwoToneIcon from "@mui/icons-material/EditTwoTone";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Close";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 
 export default function DataGrid({
   initialRows,
@@ -20,8 +21,10 @@ export default function DataGrid({
   offset,
   totalCount,
 }) {
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [filterValue, setFilterValue] = useState("");
   const [selectedRowIds, setSelectedRowIds] = useState([]);
-
   const [rows, setRows] = useState(initialRows);
   const [rowModesModel, setRowModesModel] = useState({});
   const [rowCount, setRowCount] = useState(totalCount || 0);
@@ -58,6 +61,10 @@ export default function DataGrid({
     }
   };
 
+  useEffect(() => {
+    setSearchParams({ startWith: offset, equals: limit, ...filterValue });
+  }, [limit, offset, filterValue]);
+
   const handleDeleteClick = (id) => () => {
     handleDeleteRow(id);
   };
@@ -78,6 +85,18 @@ export default function DataGrid({
   const handlePageChange = (newOffset) => {
     if (newOffset > offset) setOffset(offset + 1);
     else setOffset(offset - 1);
+  };
+
+  const handleFilterModelChange = (e) => {
+    setFilterValue(
+      e.items.reduce(
+        (prev, curr) => ({
+          ...prev,
+          ...(curr.value && { [curr.columnField]: curr.value }),
+        }),
+        {}
+      )
+    );
   };
 
   const actions = {
@@ -166,6 +185,7 @@ export default function DataGrid({
           }}
           rowCount={rowCount}
           paginationMode="server"
+          onFilterModelChange={handleFilterModelChange}
         />
       </div>
     </Box>

@@ -5,7 +5,7 @@ export const useProducts = (limit, offset) => {
   return useQuery(
     ["products", offset, limit],
     async () => {
-      const { data } = await axios.get("http://localhost:5000/products", {
+      const { data } = await axios.get("http://localhost:4000/products", {
         params: {
           offset: offset,
           limit: limit,
