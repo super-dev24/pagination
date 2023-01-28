@@ -22,8 +22,8 @@ app.get("/products/", (req, res) => {
   }
 
   const products = filteredProducts.slice(
-    +offset * +limit,
-    +offset * +limit + +limit
+    (+offset - 1) * +limit,
+    (+offset - 1) * +limit + +limit
   );
   return res.json({ totalCount: filteredProducts.length, products });
 });

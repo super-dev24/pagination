@@ -84,7 +84,7 @@ export default function DataGrid({
   };
 
   const handlePageChange = (newOffset) => {
-    if (newOffset > offset) setOffset(offset + 1);
+    if (newOffset > offset - 1) setOffset(offset + 1);
     else setOffset(offset - 1);
   };
 
@@ -98,7 +98,7 @@ export default function DataGrid({
         {}
       )
     );
-    setOffset(0);
+    setOffset(1);
   };
 
   const actions = {
@@ -178,7 +178,7 @@ export default function DataGrid({
           disableSelectionOnClick
           onSelectionModelChange={setSelectedRowIds}
           pageSize={limit}
-          page={offset}
+          page={offset - 1}
           onPageChange={handlePageChange}
           onPageSizeChange={setLimit}
           rowsPerPageOptions={[5, 10, 20]}

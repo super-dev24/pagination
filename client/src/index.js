@@ -27,11 +27,9 @@ const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.querySelector("#root")).render(
   <QueryClientProvider client={queryClient}>
-    <React.StrictMode>
-      <StyledEngineProvider injectFirst>
-        <RouterProvider router={router} />
-      </StyledEngineProvider>
-    </React.StrictMode>
+    <StyledEngineProvider injectFirst>
+      <RouterProvider router={router} />
+    </StyledEngineProvider>
     <ReactQueryDevtools initialIsOpen={false} />
   </QueryClientProvider>
 );

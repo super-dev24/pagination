@@ -26,7 +26,7 @@ const columns = [
 export default function PageSizeCustomOptions() {
   const [searchParams] = useSearchParams();
   const [limit, setLimit] = useState(+searchParams.get("perPage") || 5);
-  const [offset, setOffset] = useState(+searchParams.get("page") || 0);
+  const [offset, setOffset] = useState(+searchParams.get("page") || 1);
   const [filterValue, setFilterValue] = useState(
     ["equals", "startsWith"].reduce(
       (prev, curr) => ({
