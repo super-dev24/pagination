@@ -20,8 +20,8 @@ const columns = [
 
 export default function PageSizeCustomOptions() {
   const [searchParams] = useSearchParams();
-  const [limit, setLimit] = useState(+searchParams.get("equals") || 5);
-  const [offset, setOffset] = useState(+searchParams.get("startWith") || 0);
+  const [limit, setLimit] = useState(+searchParams.get("perPage") || 5);
+  const [offset, setOffset] = useState(+searchParams.get("page") || 0);
   const [rows, setRows] = useState([]);
 
   const { data } = useProducts(limit, offset);

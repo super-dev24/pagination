@@ -62,7 +62,7 @@ export default function DataGrid({
   };
 
   useEffect(() => {
-    setSearchParams({ startWith: offset, equals: limit, ...filterValue });
+    setSearchParams({ page: offset, perPage: limit, ...filterValue });
   }, [limit, offset, filterValue]);
 
   const handleDeleteClick = (id) => () => {
@@ -88,11 +88,12 @@ export default function DataGrid({
   };
 
   const handleFilterModelChange = (e) => {
+    console.log(e);
     setFilterValue(
       e.items.reduce(
         (prev, curr) => ({
           ...prev,
-          ...(curr.value && { [curr.columnField]: curr.value }),
+          ...(curr.value && { [curr.operatorValue]: curr.value }),
         }),
         {}
       )
