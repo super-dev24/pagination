@@ -1,18 +1,23 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import React, { useState, useEffect, useMemo } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import DataGrid from "./datagrid";
 import getCustomToolbar from "./CustomToolbar";
 import { useProducts } from "./hooks/products";
 import { deleteProducts, postProducts } from "./api";
+import { getGridStringOperators } from "@mui/x-data-grid";
 
 const CustomToolbar = getCustomToolbar();
 
+const filterOperators = getGridStringOperators().filter(({ value }) =>
+  ["equals", "startsWith"].includes(value)
+);
+
 const columns = [
-  { field: "id", hide: true },
   {
     field: "name",
     headerName: "Product Name",
     minWidth: 200,
+    filterOperators,
     flex: 1,
     editable: true,
   },
@@ -22,9 +27,21 @@ export default function PageSizeCustomOptions() {
   const [searchParams] = useSearchParams();
   const [limit, setLimit] = useState(+searchParams.get("perPage") || 5);
   const [offset, setOffset] = useState(+searchParams.get("page") || 0);
+  const [filterValue, setFilterValue] = useState(
+    ["equals", "startsWith"].reduce(
+      (prev, curr) => ({
+        ...prev,
+        ...(searchParams.get(curr) && { [curr]: searchParams.get(curr) }),
+      }),
+      {}
+    )
+  );
   const [rows, setRows] = useState([]);
-
-  const { data } = useProducts(limit, offset);
+  const paramsObj = Array.from(searchParams.keys()).reduce(
+    (prev, curr) => ({ ...prev, [curr]: searchParams.get(curr) }),
+    { limit, offset }
+  );
+  const { data } = useProducts(paramsObj);
 
   const navigate = useNavigate();
   const handleEditClick = (id) => {
@@ -74,6 +91,8 @@ export default function PageSizeCustomOptions() {
         }}
         setLimit={setLimit}
         limit={limit}
+        filterValue={filterValue}
+        setFilterValue={setFilterValue}
         offset={offset}
         setOffset={setOffset}
         totalCount={rows?.totalCount}

@@ -1,12 +1,12 @@
 import { Box } from "@mui/material";
 import { GridActionsCellItem, GridRowModes } from "@mui/x-data-grid-pro";
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 import { DataGridPro } from "@mui/x-data-grid-pro";
 import EditTwoToneIcon from "@mui/icons-material/EditTwoTone";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Close";
-import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 export default function DataGrid({
   initialRows,
@@ -20,15 +20,21 @@ export default function DataGrid({
   setOffset,
   offset,
   totalCount,
+  filterValue,
+  setFilterValue,
 }) {
-  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-  const [filterValue, setFilterValue] = useState("");
   const [selectedRowIds, setSelectedRowIds] = useState([]);
   const [rows, setRows] = useState(initialRows);
   const [rowModesModel, setRowModesModel] = useState({});
   const [rowCount, setRowCount] = useState(totalCount || 0);
   const [changedRow, setChangedRow] = useState({});
+  const initialFilterValue = Object.keys(filterValue).map((value, index) => ({
+    id: value + index,
+    columnField: "name",
+    operatorValue: value,
+    value: filterValue[value],
+  }));
 
   useEffect(() => {
     setRowCount((prevRowCount) =>
@@ -69,11 +75,6 @@ export default function DataGrid({
     handleDeleteRow(id);
   };
 
-  const handleSelectionChange = (params, event, details) => {
-    console.log("params", params);
-    console.log("details", details);
-  };
-
   const processRowUpdate = (newRow) => {
     const updatedRow = { ...newRow, isNew: false };
     setChangedRow(updatedRow);
@@ -88,7 +89,6 @@ export default function DataGrid({
   };
 
   const handleFilterModelChange = (e) => {
-    console.log(e);
     setFilterValue(
       e.items.reduce(
         (prev, curr) => ({
@@ -98,6 +98,7 @@ export default function DataGrid({
         {}
       )
     );
+    setOffset(0);
   };
 
   const actions = {
@@ -165,11 +166,17 @@ export default function DataGrid({
       <div style={{ flexGrow: 1, height: 520 }}>
         <DataGridPro
           {...dataGridProps}
+          initialState={{
+            filter: {
+              filterModel: {
+                items: initialFilterValue,
+              },
+            },
+          }}
           columns={[...columns, actions]}
           rows={rows}
           disableSelectionOnClick
           onSelectionModelChange={setSelectedRowIds}
-          onSelectionChange={handleSelectionChange}
           pageSize={limit}
           page={offset}
           onPageChange={handlePageChange}
@@ -183,6 +190,7 @@ export default function DataGrid({
           experimentalFeatures={{ newEditingApi: true }}
           componentsProps={{
             toolbar: { setRows, setRowModesModel },
+            filterPanel: { linkOperators: ["and"] },
           }}
           rowCount={rowCount}
           paginationMode="server"

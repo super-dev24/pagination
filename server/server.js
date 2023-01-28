@@ -7,9 +7,25 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors({ origin: "http://localhost:3000" }));
 
 app.get("/products/", (req, res) => {
-  const { offset, limit } = req.query;
-  const products = mockData.slice(+offset * +limit, +offset * +limit + +limit);
-  return res.json({ totalCount: mockData.length, products });
+  const { offset, limit, startsWith, equals } = req.query;
+  let filteredProducts = mockData;
+  if (startsWith) {
+    filteredProducts = mockData.filter((data) =>
+      data.name.toLowerCase().startsWith(startsWith.toLowerCase())
+    );
+  }
+
+  if (equals) {
+    filteredProducts = mockData.filter(
+      (data) => data.name.toLowerCase() === equals.toLowerCase()
+    );
+  }
+
+  const products = filteredProducts.slice(
+    +offset * +limit,
+    +offset * +limit + +limit
+  );
+  return res.json({ totalCount: filteredProducts.length, products });
 });
 
 app.delete("/products/", (req, res) => {

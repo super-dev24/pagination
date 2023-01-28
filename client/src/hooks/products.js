@@ -1,15 +1,12 @@
 import { useQuery } from "react-query";
 import axios from "axios";
 
-export const useProducts = (limit, offset) => {
+export const useProducts = (params) => {
   return useQuery(
-    ["products", offset, limit],
+    ["products", params],
     async () => {
       const { data } = await axios.get("http://localhost:4000/products", {
-        params: {
-          offset: offset,
-          limit: limit,
-        },
+        params,
       });
       return data;
     },
