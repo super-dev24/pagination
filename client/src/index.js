@@ -2,8 +2,8 @@ import * as React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { StyledEngineProvider } from "@mui/material/styles";
-import Demo from "./pages/demo";
-import EditProduct from "./pages/EditProduct";
+import Demo from "./demo";
+import EditProduct from "./EditProduct";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 
@@ -27,9 +27,11 @@ const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.querySelector("#root")).render(
   <QueryClientProvider client={queryClient}>
-    <StyledEngineProvider injectFirst>
-      <RouterProvider router={router} />
-    </StyledEngineProvider>
+    <React.StrictMode>
+      <StyledEngineProvider injectFirst>
+        <RouterProvider router={router} />
+      </StyledEngineProvider>
+    </React.StrictMode>
     <ReactQueryDevtools initialIsOpen={false} />
   </QueryClientProvider>
 );

@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import DataGrid from "../components/DataGrid";
-import getCustomToolbar from "../components/CustomToolbar";
-import { useProducts } from "../hooks/products";
-import { deleteProducts, postProducts } from "../action";
+import DataGrid from "./datagrid";
+import getCustomToolbar from "./CustomToolbar";
+import { useProducts } from "./hooks/products";
+import { deleteProducts, postProducts } from "./action";
 import { getGridStringOperators } from "@mui/x-data-grid";
 
 const CustomToolbar = getCustomToolbar();

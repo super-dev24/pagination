@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Box, TextField, Button, Stack } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate, useLocation } from "react-router-dom";
-import { postProducts } from "../action";
+import { postProducts } from "./action";
 
 const EditProduct = () => {
   const location = useLocation();
