@@ -31,7 +31,10 @@ app.get("/products/", (req, res) => {
 app.delete("/products/", (req, res) => {
   const { id, offset, limit } = req.query;
   mockData = mockData.filter((item) => item.id !== +id);
-  const products = mockData.slice(+offset * +limit, +offset * +limit + +limit);
+  const products = mockData.slice(
+    (+offset - 1) * +limit,
+    (+offset - 1) * +limit + +limit
+  );
   return res.json({ totalCount: mockData.length, products });
 });
 
@@ -40,7 +43,10 @@ app.post("/products/", (req, res) => {
   mockData = mockData.map((item) =>
     item.id === +id ? { ...item, name: name } : { ...item }
   );
-  const products = mockData.slice(+offset * +limit, +offset * +limit + +limit);
+  const products = mockData.slice(
+    (+offset - 1) * +limit,
+    (+offset - 1) * +limit + +limit
+  );
   return res.json({ totalCount: mockData.length, products });
 });
 
