@@ -2,8 +2,8 @@ import * as React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { StyledEngineProvider } from "@mui/material/styles";
-import Demo from "./demo";
-import EditProduct from "./EditProduct";
+import Demo from "./pages/demo";
+import EditProduct from "./pages/EditProduct";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 
