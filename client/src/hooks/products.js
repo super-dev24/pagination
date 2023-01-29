@@ -5,7 +5,7 @@ export const useProducts = (params) => {
   return useQuery(
     ["products", params],
     async () => {
-      const { data } = await axios.get("http://localhost:4000/products", {
+      const { data } = await axios.get(process.env.REACT_APP_PUBLIC_API, {
         params,
       });
       return data;

@@ -4,7 +4,7 @@ const app = express();
 let mockData = require("./mock.json");
 
 app.use(express.urlencoded({ extended: true }));
-app.use(cors({ origin: "http://localhost:3000" }));
+app.use(cors());
 
 app.get("/products/", (req, res) => {
   const { offset, limit, startsWith, equals } = req.query;

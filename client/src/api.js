@@ -1,15 +1,15 @@
 import axios from "axios";
 
-const PRODUCT_URL = "http://localhost:4000/products";
+const PRODUCT_URL = process.env.REACT_APP_PUBLIC_API;
 
 const deleteProducts = (params) => {
-  return axios.delete("http://localhost:4000/products", {
+  return axios.delete(PRODUCT_URL, {
     params,
   });
 };
 
 const postProducts = (params) => {
-  return axios.post("http://localhost:4000/products", null, {
+  return axios.post(PRODUCT_URL, null, {
     params,
   });
 };
