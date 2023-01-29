@@ -37,9 +37,13 @@ export default function PageSizeCustomOptions() {
     )
   );
   const [rows, setRows] = useState([]);
-  const paramsObj = Array.from(searchParams.keys()).reduce(
-    (prev, curr) => ({ ...prev, [curr]: searchParams.get(curr) }),
-    { limit, offset }
+  const paramsObj = useMemo(
+    () => ({
+      limit,
+      offset,
+      filterValue,
+    }),
+    [limit, offset, filterValue]
   );
   const { data } = useProducts(paramsObj);
 
